@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.Controller">
+   <Pane prefHeight="600.0" prefWidth="800.0">
+      <Label layoutX="139.0" layoutY="20.0" text="Декартов лист" />
+      <Label layoutX="500.0" layoutY="20.0" text="Парабалойд вращения" />
+      <TextArea fx:id="textArea1" layoutX="54.0" layoutY="37.0" prefHeight="500.0" prefWidth="250.0" />
+      <TextArea fx:id="textArea2" layoutX="438.0" layoutY="37.0" prefHeight="500.0" prefWidth="250.0" />
+      <Button layoutX="128.0" layoutY="554.0" mnemonicParsing="false" onAction="#buttonAction1" prefHeight="25.0" prefWidth="100.0" text="Рассчитать" />
+      <Button layoutX="513.0" layoutY="554.0" mnemonicParsing="false" onAction="#buttonAction2" prefHeight="25.0" prefWidth="100.0" text="Рассчитать" />
+   </Pane>
+</GridPane>
