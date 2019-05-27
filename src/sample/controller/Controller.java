@@ -2,7 +2,9 @@ package sample.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import sample.function.Function1;
 import sample.function.Function2;
 
@@ -11,7 +13,16 @@ import static sample.utils.Utils.writeToFile;
 
 public class Controller {
 
-    private static final int N = 5000;
+    private static final int N = 10000;
+
+    @FXML
+    private TextField a;
+
+    @FXML
+    private TextField b;
+
+    @FXML
+    private TextField step;
 
     @FXML
     private TextArea textArea1;
@@ -28,31 +39,50 @@ public class Controller {
     private double[] Z = new double[N];
     private double[] roots = new double[N];
 
+    public void initialize() {
+        a.setText("-3");
+        b.setText("3");
+        step.setText("0.1");
+    }
+
     public void buttonAction1(ActionEvent actionEvent) {
-        int count = 0;
-        double x = -3;
-        while (x <= 3) {
-            double y1 = -3;
-            double y2 = -3 + 0.1;
-            int rootsCount = 0;
+        textArea1.clear();
+        try {
+            int count = 0;
+            double startX = Double.parseDouble(a.getText());
+            double end = Double.parseDouble(b.getText());
+            double steps = Double.parseDouble(step.getText());
 
-            while (y1 <= 3) {
-                if (fx1.f(x, y1) * fx1.f(x, y2) < 0) {
-                    roots[rootsCount] = Math.round(bisection(fx1, y1, y2, x) * 1000) / 1000.0;
-                    Y[count] = roots[rootsCount];
-                    X[count] = Math.round(x * 1000) / 1000.0;
-                    count++;
-                    rootsCount++;
+            while (startX <= end) {
+                int rootsCount = 0;
+                double startY = Double.parseDouble(a.getText());
+                double delta = Double.parseDouble(a.getText()) + Double.parseDouble(step.getText());
+
+                while (startY <= end) {
+                    if (fx1.f(startX, startY) * fx1.f(startX, delta) < 0) {
+                        roots[rootsCount] = Math.round(bisection(fx1, startY, delta, startX) * 1000) / 1000.0;
+                        Y[count] = roots[rootsCount];
+                        X[count] = Math.round(startX * 1000) / 1000.0;
+                        count++;
+                        rootsCount++;
+                    }
+                    startY += steps;
+                    delta += steps;
                 }
-                y1 += 0.1;
-                y2 += 0.1;
+                startX += steps;
             }
-            x += 0.1;
-        }
 
-        for (int i = 0; i < count; i++) {
-            textArea1.appendText(X[i] + " ");
-            textArea1.appendText(Y[i] + "\r\n");
+            for (int i = 0; i < count; i++) {
+                textArea1.appendText(X[i] + " ");
+                textArea1.appendText(Y[i] + "\r\n");
+            }
+
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setContentText("Неверно заполнены поля или они пустые");
+            alert.setHeaderText(null);
+            alert.showAndWait();
         }
 
         String text = textArea1.getText();
@@ -60,36 +90,49 @@ public class Controller {
     }
 
     public void buttonAction2(ActionEvent actionEvent) {
-        int count = 0;
-        double z = -4;
-        while (z <= 8) {
-            double x = -3;
-            while (x <= 9) {
-                double y1 = -3;
-                double y2 = -3 + 0.1;
-                int rootsCount = 0;
+        textArea2.clear();
+        try {
+            int count = 0;
+            double startZ = Double.parseDouble(a.getText());
+            double end = Double.parseDouble(b.getText());
+            double steps = Double.parseDouble(step.getText());
 
-                while (y1 <= 8) {
-                    if (fx2.f(x, y1, z) * fx2.f(x, y2, z) < 0) {
-                        roots[rootsCount] = Math.round(bisection(fx2, y1, y2, x, z) * 1000) / 1000.0;
-                        X[count] = Math.round(x * 1000) / 1000.0;
-                        Y[count] = roots[rootsCount];
-                        Z[count] = Math.round(z * 1000) / 1000.0;
-                        count++;
-                        rootsCount++;
+            while (startZ <= end) {
+                double startX = Double.parseDouble(a.getText());
+                while (startX <= end) {
+                    double startY = Double.parseDouble(a.getText());
+                    double delta = Double.parseDouble(a.getText()) + Double.parseDouble(step.getText());
+                    int rootsCount = 0;
+
+                    while (startY <= end) {
+                        if (fx2.f(startX, startY, startZ) * fx2.f(startX, delta, startZ) < 0) {
+                            roots[rootsCount] = Math.round(bisection(fx2, startY, delta, startX, startZ) * 1000) / 1000.0;
+                            X[count] = Math.round(startX * 1000) / 1000.0;
+                            Y[count] = roots[rootsCount];
+                            Z[count] = Math.round(startZ * 1000) / 1000.0;
+                            count++;
+                            rootsCount++;
+                        }
+                        startY += steps;
+                        delta += steps;
                     }
-                    y1 += 0.1;
-                    y2 += 0.1;
+                    startX += steps;
                 }
-                x += 0.2;
+                startZ += steps;
             }
-            z += 0.5;
-        }
 
-        for (int i = 0; i < count; i++) {
-            textArea2.appendText(X[i] + " ");
-            textArea2.appendText(Y[i] + " ");
-            textArea2.appendText(Z[i] + "\r\n");
+            for (int i = 0; i < count; i++) {
+                textArea2.appendText(X[i] + " ");
+                textArea2.appendText(Y[i] + " ");
+                textArea2.appendText(Z[i] + "\r\n");
+            }
+
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setContentText("Неверно заполнены поля или они пустые");
+            alert.setHeaderText(null);
+            alert.showAndWait();
         }
 
         String text = textArea2.getText();

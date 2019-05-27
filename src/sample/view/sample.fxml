@@ -11,5 +11,11 @@
       <TextArea fx:id="textArea2" layoutX="438.0" layoutY="37.0" prefHeight="500.0" prefWidth="250.0" />
       <Button layoutX="128.0" layoutY="554.0" mnemonicParsing="false" onAction="#buttonAction1" prefHeight="25.0" prefWidth="100.0" text="Рассчитать" />
       <Button layoutX="513.0" layoutY="554.0" mnemonicParsing="false" onAction="#buttonAction2" prefHeight="25.0" prefWidth="100.0" text="Рассчитать" />
+      <Label layoutX="331.0" layoutY="114.0" text="a" />
+      <Label layoutX="402.0" layoutY="114.0" text="b" />
+      <TextField fx:id="a" layoutX="309.0" layoutY="135.0" prefHeight="30.0" prefWidth="50.0" />
+      <TextField fx:id="b" layoutX="381.0" layoutY="135.0" prefHeight="30.0" prefWidth="50.0" />
+      <Label layoutX="359.0" layoutY="181.0" text="Step" />
+      <TextField fx:id="step" layoutX="346.0" layoutY="205.0" prefHeight="30.0" prefWidth="50.0" />
    </Pane>
 </GridPane>
