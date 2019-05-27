@@ -11,7 +11,7 @@ import static sample.utils.Utils.writeToFile;
 
 public class Controller {
 
-    private static final int N = 1000;
+    private static final int N = 5000;
 
     @FXML
     private TextArea textArea1;
@@ -31,12 +31,12 @@ public class Controller {
     public void buttonAction1(ActionEvent actionEvent) {
         int count = 0;
         double x = -3;
-        for (int i = 0; i < 50; i++) {
+        while (x <= 3) {
             double y1 = -3;
             double y2 = -3 + 0.1;
             int rootsCount = 0;
 
-            for (int j = 0; j < 50; j++) {
+            while (y1 <= 3) {
                 if (fx1.f(x, y1) * fx1.f(x, y2) < 0) {
                     roots[rootsCount] = Math.round(bisection(fx1, y1, y2, x) * 1000) / 1000.0;
                     Y[count] = roots[rootsCount];
@@ -62,14 +62,14 @@ public class Controller {
     public void buttonAction2(ActionEvent actionEvent) {
         int count = 0;
         double z = -4;
-        for (int i = 0; i < 50; i++) {
+        while (z <= 8) {
             double x = -3;
-            for (int j = 0; j < 50; j++) {
+            while (x <= 9) {
                 double y1 = -3;
                 double y2 = -3 + 0.1;
                 int rootsCount = 0;
 
-                for (int k = 0; k < 100; k++) {
+                while (y1 <= 8) {
                     if (fx2.f(x, y1, z) * fx2.f(x, y2, z) < 0) {
                         roots[rootsCount] = Math.round(bisection(fx2, y1, y2, x, z) * 1000) / 1000.0;
                         X[count] = Math.round(x * 1000) / 1000.0;
